@@ -1,0 +1,117 @@
+LIVE over SSH
+
+Running your xbox 360 over a secure shell link?  very cool.
+Doing it without a ton of setup work?  better.
+Tunneling other devices on your network over ssh?  nice.
+
+
+
+What is it?
+
+Run your xbox 360 or other device through a SSH link.  Also, can 
+function as a wireless bridge for you 360, saving you $99 for the 
+wireless adapter. The script can automatically configure the 
+connections and system on startup, then reset everything when it is 
+closed.  Easy!
+
+
+
+How does it work?
+
+It works by creating a seperate network on the secondary network 
+interface, running dnsmasq to handle IP address allocation, then sets 
+the linux routing table to forward packets from the secondary network 
+to redsocks, which then relays everything to ssh as SOCKS5.  SSH, then 
+forwards the packets to another server, and so on.
+
+While I am using it for my xbox, you may use the secondary interface 
+for any device that uses ethernet.  BUT, its only been tested with my 
+xbox, and for technical reasons, cannot handle UDP, which may limit 
+its uses.
+
+
+
+Getting Started:
+
+Before you start you will need a computer running linux with a free 
+network interface.  It has only been tested with an ethernet adapter, 
+but could use wireless...with some work and compatable drivers to let 
+the wireless adapter function as a hotspot.
+
+I'm currently running this on an ASUS eee pc 901 laptop.  It is also 
+working like a wireless adapter for the xbox.  Its like a wireless 
+bridge.  In fact, you can disable the ssh function and just run the 
+script as a wireless bridge for your 360, or anything else.
+
+Your linux system should have:
+
+* 2+ network interfaces (use a laptop)
+* iptables
+* ssh
+* dnsmasq
+* python >= 2.6
+* redsocks (included in the download)
+
+
+
+Quick Guide to getting it running:
+
+* Download the script.
+* Install redsocks.  You may have to build it from source if it is not 
+     in your distro.  I have had problems with the git version 
+     dropping connections.  Use the version included.  I've included a 
+     binary, but it may not work on your system.
+* Install dnsmasq.
+     Your system may attempt to use it as a service.  You will need to 
+     disable it because the script will configure and run dnsmasq on 
+     its own (so you don't have to).
+
+NOTE:
+     If you are using network manager, you may want to disable it and
+     configure your internet connection manually.  The script isn't 
+     network manager aware, and nm will close the interfaces just as 
+     soon as the script sets them up.  Not a good situation.  May 
+     change in the future.  If you insist on using network manager, 
+     then use nm to set your secondary interface to a seperate network 
+     from your internet connection.  For example, 192.168.32.1.
+
+* Put the script in a directory somewhere.
+     Copy the redsock binary there if you had to build it from source.
+
+*  Open the script and check the settings for your system.
+*  Set the ssh options for your server (ie wowlinks, etc).
+*  Run the script.
+     Wait until it prints that the link is ready.
+
+* Plug your xbox360 directly into your computer with an ethernet
+     cable.  You may have to run the network setup on the 360 to get 
+     it to register the new IP address.
+     Your nat will probably be something like 'moderate', or 'strict'.
+
+Done!
+
+
+
+Limitations:
+
+Due to the limitations of redsocks, a program used to tunnel, UDP is 
+not supported.  This may limit what you can do with your 360 over ssh. 
+Currently tested and working (for me) is:
+
+*  Logging into Live
+*  Browsing games
+*  Downloading stuff
+*  Sending messages
+*  Playing ranked matches in SSFIV
+*  Voice Chat
+
+This has only been tested on Debian Lenny.
+
+
+Finally:
+
+Of course, I am not responsible for any damages done to you, your 
+computer(s), xbox 360, live account, cat, etc.
+Use at your own risk.
+
+ENJOY!
