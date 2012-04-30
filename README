@@ -14,6 +14,10 @@ wireless adapter. The script can automatically configure the
 connections and system on startup, then reset everything when it is 
 closed.  Easy!
 
+The script can optionally be configure to not use a ssh tunnel and
+will simply forward packets from one interface to another.  This is
+useful if you want to use the host computer as a wireless adapter.
+
 
 
 How does it work?
